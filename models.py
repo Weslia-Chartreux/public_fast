@@ -1,13 +1,19 @@
+from datetime import datetime
+
 from pydantic import BaseModel
 import sqlalchemy
-from sqlalchemy import String, Column, Float, SMALLINT, Integer
+from sqlalchemy import String, Column, Float, SMALLINT, Integer, Boolean
+from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.ext.declarative import declarative_base
+from typing import Optional
+from pydantic import UUID4, BaseModel, EmailStr, Field, validator
 
 DeclarativeBase = declarative_base()
 
 
 class Post_Item(BaseModel):
     addr_init: str
+    password: str = None
     addr_clean: str = None
     addr_dadata: str = None
     addr_yandex: str = None
@@ -20,14 +26,22 @@ class Post_Item(BaseModel):
 
 class Delete_item(BaseModel):
     row_id: int
+    password: str = None
+
+
+class Get_item(BaseModel):
+    row_id: int
+    password: str = None
 
 
 class Addr_item(BaseModel):
     addr: str
+    password: str = None
 
 
 class Patch_Item(BaseModel):
     row_id: int
+    password: str = None
     addr_init: str = None
     addr_clean: str = None
     addr_dadata: str = None

@@ -1,21 +1,20 @@
 import os
 
-import psycopg2
+
 import sqlalchemy
 from sqlalchemy.orm import sessionmaker
 
 from auth.auth import true_pass
+from config import path_to_env
 from tool_db import create_row, get_row, delete_row, patch_row, get_row_addr
 from dotenv import load_dotenv
-from fastapi import FastAPI, HTTPException, Depends
+from fastapi import FastAPI, HTTPException
 from sqlalchemy import create_engine
 
 from uvicorn import run
 from models import Post_Item, Delete_item, Addr_item, Address_table, DeclarativeBase, Patch_Item, Get_item
-from config import host_asgi, port_asgi
-import databases
 
-load_dotenv('auth/111.env')
+load_dotenv(path_to_env)
 
 # берем параметры БД из переменных окружения
 DB_USER = os.getenv("DB_USER")

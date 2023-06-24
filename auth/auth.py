@@ -5,7 +5,9 @@ import random
 
 from dotenv import load_dotenv
 
-load_dotenv('111.env')
+from config import path_to_env
+
+load_dotenv(path_to_env)
 
 
 def get_random_string(length=12):

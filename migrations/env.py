@@ -2,12 +2,14 @@ import os
 from logging.config import fileConfig
 from os import environ
 from alembic import context
+
+from config import path_to_env
 from models import Address_table
 from dotenv import load_dotenv
 
 # Alembic Config объект предоставляет доступ
 # к переменным из файла alembic.ini
-load_dotenv('111.env')
+load_dotenv(path_to_env)
 config = context.config
 
 section = config.config_ini_section

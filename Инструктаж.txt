@@ -9,6 +9,8 @@ DB_NAME = "" - название databases
 DB_HOST = "" - хост бд
 PASSWORD = "" - хешированный пароль для подключения к бд, в auth/auth.py лежат функции для его формирования
 
+Каждый метод должен иметь в json-запросе строчку "password": "значение пароля", если он отсутствует (или неправильный) будет приходить ошибка 401 Unauthorized.
+
 Метод GET:
 	1). Запрос по row_id происходит по адресу "host:port/address/", json-файл типа {"row_id": int}. Ответ выглядит так:
 	    {'row_id': int, 'addr_init': str, 'addr_clean': str, 'addr_dadata': str, 'addr_yandex': str, 'lat_dadata': float, 'lon_dadata': float, 'aq_dadata': int,

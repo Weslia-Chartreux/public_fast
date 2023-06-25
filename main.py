@@ -5,7 +5,6 @@ import sqlalchemy
 from sqlalchemy.orm import sessionmaker
 
 from auth.auth import true_pass
-from config import path_to_env
 from tool_db import create_row, get_row, delete_row, patch_row, get_row_addr
 from dotenv import load_dotenv
 from fastapi import FastAPI, HTTPException
@@ -14,13 +13,16 @@ from sqlalchemy import create_engine
 from uvicorn import run
 from models import Post_Item, Delete_item, Addr_item, Address_table, DeclarativeBase, Patch_Item, Get_item
 
-load_dotenv(path_to_env)
 
 # берем параметры БД из переменных окружения
-DB_USER = os.getenv("DB_USER")
-DB_PASSWORD = os.getenv("DB_PASS")
-DB_HOST = os.getenv("DB_HOST")
-DB_NAME = os.getenv("DB_NAME")
+import json
+
+with open('deploy/configs/config.json', 'r', encoding='utf-8') as f:
+    conf = json.load(f)
+DB_USER = conf['db_config']['user']
+DB_PASSWORD = conf['db_config']['password']
+DB_HOST = conf['db_config']['host']
+DB_NAME = conf['db_config']['name']
 SQLALCHEMY_DATABASE_URL = (
     f"postgresql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:5432/{DB_NAME}"
 )
@@ -39,7 +41,7 @@ async def startup():
 
 @app.post("/address/")
 async def create_item(item: Post_Item):
-    if not true_pass(item.password):
+    if not true_pass(item.password, conf['api']['password']):
         raise HTTPException(status_code=401, detail="Unauthorized.")
     ans = create_row(item, session)
     if isinstance(ans, sqlalchemy.exc.IntegrityError):
@@ -51,7 +53,7 @@ async def create_item(item: Post_Item):
 
 @app.get("/address/")
 async def root(data: Get_item):
-    if not true_pass(data.password):
+    if not true_pass(data.password, conf['api']['password']):
         raise HTTPException(status_code=401, detail="Unauthorized.")
     ans = get_row(data.row_id, session)
     if isinstance(ans, KeyError):
@@ -63,7 +65,7 @@ async def root(data: Get_item):
 
 @app.delete("/address/")
 async def delete_item(data: Delete_item):
-    if not true_pass(data.password):
+    if not true_pass(data.password, conf['api']['password']):
         raise HTTPException(status_code=401, detail="Unauthorized.")
     ans = delete_row(data.row_id, session)
     if isinstance(ans, KeyError):
@@ -76,7 +78,7 @@ async def delete_item(data: Delete_item):
 
 @app.patch("/address/")
 async def patch_item(data: Patch_Item):
-    if not true_pass(data.password):
+    if not true_pass(data.password, conf['api']['password']):
         raise HTTPException(status_code=401, detail="Unauthorized.")
     if data.addr_init is not None:
         raise HTTPException(status_code=400, detail="You cannot change the 'addr_init' column.")
@@ -90,7 +92,7 @@ async def patch_item(data: Patch_Item):
 
 @app.get("/address/addr/")
 async def get_item_addr(data: Addr_item):
-    if not true_pass(data.password):
+    if not true_pass(data.password, conf['api']['password']):
         raise HTTPException(status_code=401, detail="Unauthorized.")
     ans = get_row_addr(data, session)
     if isinstance(ans, KeyError):

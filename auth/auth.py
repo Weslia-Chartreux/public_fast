@@ -1,13 +1,6 @@
 import hashlib
-import os
 import string
 import random
-
-from dotenv import load_dotenv
-
-from config import path_to_env
-
-load_dotenv(path_to_env)
 
 
 def get_random_string(length=12):
@@ -29,10 +22,9 @@ def validate_password(password: str, hashed_password: str):
     return hash_password(password, salt) == hashed
 
 
-def true_pass(password: str):
-    true_password = os.getenv("PASSWORD")
-    if password is None:
+def true_pass(valid_password: str, true_password: str):
+    if valid_password is None:
         return False
-    if validate_password(password, true_password):
+    if validate_password(valid_password, true_password):
         return True
     return False

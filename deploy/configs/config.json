@@ -1,0 +1,11 @@
+{
+    "db_config": {
+        "user":"postgres",
+        "password":"0325",
+        "name": "task1",
+        "host":"127.0.0.1"
+    },
+    "api":{
+        "password":"VphlnsdjjRVo$8069766d45a0d3aeee92a44996a4b86236158b97e80c081c914d149267268196"
+    }
+}

@@ -4,20 +4,19 @@ import os
 import sqlalchemy
 from sqlalchemy.orm import sessionmaker
 
-from auth.auth import true_pass
-from tool_db import create_row, get_row, delete_row, patch_row, get_row_addr
-from dotenv import load_dotenv
+from app.auth.auth import true_pass
+from app.tool_db import create_row, get_row, delete_row, patch_row, get_row_addr
 from fastapi import FastAPI, HTTPException
 from sqlalchemy import create_engine
 
 from uvicorn import run
-from models import Post_Item, Delete_item, Addr_item, Address_table, DeclarativeBase, Patch_Item, Get_item
+from app.models import Post_Item, Delete_item, Addr_item, Address_table, DeclarativeBase, Patch_Item, Get_item
 
 
 # берем параметры БД из переменных окружения
 import json
 
-with open('deploy/configs/config.json', 'r', encoding='utf-8') as f:
+with open('app/deploy/configs/config.json', 'r', encoding='utf-8') as f:
     conf = json.load(f)
 DB_USER = conf['db_config']['user']
 DB_PASSWORD = conf['db_config']['password']
@@ -102,5 +101,5 @@ async def get_item_addr(data: Addr_item):
     return ans
 
 
-if __name__ == "__main__":
-    run(app)
+#if __name__ == "__main__":
+#    run(app)

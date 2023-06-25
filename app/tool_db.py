@@ -1,8 +1,6 @@
 import psycopg2
-from sqlalchemy import Column, Integer, String, Float, SMALLINT
-from sqlalchemy.orm import sessionmaker
 
-from models import Post_Item, Address_table, Delete_item, Patch_Item, Addr_item
+from app.models import Post_Item, Address_table, Delete_item, Patch_Item, Addr_item
 
 
 def create_row(item: Post_Item, session):

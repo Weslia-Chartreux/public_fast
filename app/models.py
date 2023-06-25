@@ -1,12 +1,7 @@
-from datetime import datetime
-
-from pydantic import BaseModel
 import sqlalchemy
 from sqlalchemy import String, Column, Float, SMALLINT, Integer, Boolean
-from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.ext.declarative import declarative_base
-from typing import Optional
-from pydantic import UUID4, BaseModel, EmailStr, Field, validator
+from pydantic import BaseModel
 
 DeclarativeBase = declarative_base()
 

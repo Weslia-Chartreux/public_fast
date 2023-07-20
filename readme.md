@@ -24,7 +24,7 @@ api
 
        'row_id': int
        'addr_init': str - изначальный адрес
-       'addr_clean': str - "почищенная" строк адреса 
+       'addr_clean': str - "почищенная" строка адреса 
        'addr_dadata': str - адрес, полученный с помощью сервиса dadata
        'addr_yandex': str - адрес, полученный с помощью сервиса yandex
        'lat_dadata': float - широта, полученный с помощью сервиса dadata

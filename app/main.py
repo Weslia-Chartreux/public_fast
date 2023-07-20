@@ -13,7 +13,6 @@ from uvicorn import run
 from app.models import Post_Item, Delete_item, Addr_item, Address_table, DeclarativeBase, Patch_Item, Get_item
 
 
-# берем параметры БД из переменных окружения
 import json
 
 with open('app/deploy/configs/config.json', 'r', encoding='utf-8') as f:
